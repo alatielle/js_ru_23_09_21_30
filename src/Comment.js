@@ -8,7 +8,7 @@ export default (props) => {
 
     return (
         <span>
-            {comment.user} said: {comment.text}
+            <strong>{comment.user} said:</strong> {comment.text}
         </span>
     );
 }

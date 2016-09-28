@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { normalizedComments } from './fixtures';
 import CommentList from './CommentList';
 
 export default class Article extends Component {
@@ -20,7 +19,7 @@ export default class Article extends Component {
         const body = isOpen ? <section>{article.text}</section> : null;
         const linkText = showComments ? 'Спрятать комментарии' : 'Показать комментарии';
         const link = isOpen? <a href='#' onClick = {this.toggleComments} >{linkText}</a> : null;
-        const comments = showComments ? <CommentList comments = {normalizedComments} /> : null;
+        const comments = showComments ? <CommentList comments = {article.comments} /> : null;
 
         return (
             <div>
