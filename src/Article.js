@@ -7,6 +7,7 @@ export default class Article extends Component {
         super();
         this.state = {
             isOpen: false,
+            //этот стейт лучше внести в CommentList
             showComments: false
         }
     }
