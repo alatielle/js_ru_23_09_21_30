@@ -22,12 +22,8 @@ class Article extends React.Component {
 
     toggleOpen = ev => {
         const { article, isOpen, openArticle } = this.props
-
-        if (isOpen) {
-            openArticle(null)
-        } else {
-            openArticle(article.id)
-        }
+        const id = isOpen ? null : article.id
+        openArticle(id)
     }
 }
 
