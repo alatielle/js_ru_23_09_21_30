@@ -1,30 +1,39 @@
 import React, { Component } from 'react'
-import CommentList from './CommentList';
+
+import CommentList from './CommentList'
 
 export default class Article extends Component {
+    static defaultProps = {
+
+    }
+    componentWillMount() {
+        console.log('---', 'mounting')
+    }
+
+    componentDidMount() {
+        console.log('---', 'mounted')
+    }
+
+    componentWillUnmount() {
+        console.log('---', 'unmounting')
+    }
 
     constructor(props) {
         super();
         this.state = {
             isOpen: false,
-            //этот стейт лучше внести в CommentList
-            showComments: false
+            foo: 'bar'
         }
     }
 
     render() {
-        const { article } = this.props;
-        const { isOpen, showComments } = this.state;
-        console.log('---', this.state);
+        const { article, isOpen, openArticle } = this.props
 
-        const body = isOpen ? <section>{article.text}</section> : null;
-        const linkText = showComments ? 'Спрятать комментарии' : 'Показать комментарии';
-        const link = isOpen? <a href='#' onClick = {this.toggleComments} >{linkText}</a> : null;
-        const comments = showComments ? <CommentList comments = {article.comments} /> : null;
-
+        const body = isOpen ? <section>{article.text}<CommentList comments = {article.comments} /></section> : null
+        // <section style = {{display: isOpen ? 'block' : 'none'}}>{article.text}</section>
         return (
             <div>
-                <h3 onClick = {this.toggleOpen}>{article.title}</h3>
+                <h3 onClick = {openArticle}>{article.title}</h3>
                 {body}
                 {link}
                 {comments}
@@ -35,12 +44,6 @@ export default class Article extends Component {
     toggleOpen = ev => {
         this.setState({
             isOpen: !this.state.isOpen
-        })
-    }
-
-    toggleComments = ev => {
-        this.setState({
-            showComments: !this.state.showComments
         })
     }
 }
