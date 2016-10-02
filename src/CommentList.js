@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import Comment from './Comment';
-
-export default (props) => {
-    const { comments } = props;
-
-    let commentComponents = <i>Комментариев нет :(</i>;
-
-    if (comments) {
-        commentComponents = comments.map(comment => <li key={comment.id}><Comment comment = {comment}/></li>);
-    }
-
-    return (
-        <ul>
-            {commentComponents}
-        </ul>
-    );
-}
-=======
 import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
 import toggleOpen from './decorators/toggleOpen'
@@ -38,5 +18,10 @@ function CommentList(props) {
     )
 }
 
+CommentList.propTypes = {
+    comments: PropTypes.array,
+    isOpen: PropTypes.bool,
+    toggleOpen: PropTypes.func
+}
+
 export default toggleOpen(CommentList)
->>>>>>> 0dafa1b0a4683fd51fe455da9f264b138830e704

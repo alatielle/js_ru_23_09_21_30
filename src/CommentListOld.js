@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Comment from './Comment'
 import toggleOpen from './mixins/toggleOpen'
 
 const CommentListOld = React.createClass({
     mixins: [toggleOpen],
     propTypes: {
-
+        comments: PropTypes.array
     },
 
     componentWillMount() {
