@@ -2,18 +2,33 @@ import React, { Component, PropTypes } from 'react'
 
 import CommentList from './CommentList'
 
-function Article(props) {
-    const { article, isOpen, openArticle } = props
+class Article extends React.Component {
+    constructor(props) {
+        super(props)
+    }
 
-    const body = isOpen ? <section>{article.text}<CommentList comments = {article.comments} /></section> : null
-    // <section style = {{display: isOpen ? 'block' : 'none'}}>{article.text}</section>
-    return (
-        <div>
-            <h3 onClick = {openArticle}>{article.title}</h3>
-            {body}
-        </div>
-    )
+    render() {
+        const { article, isOpen } = this.props
 
+        const body = isOpen ? <section>{article.text}<CommentList comments = {article.comments} /></section> : null
+        // <section style = {{display: isOpen ? 'block' : 'none'}}>{article.text}</section>
+        return (
+            <div>
+                <h3 onClick = {this.toggleOpen}>{article.title}</h3>
+                {body}
+            </div>
+        )
+    }
+
+    toggleOpen = ev => {
+        const { article, isOpen, openArticle } = this.props
+
+        if (isOpen) {
+            openArticle(null)
+        } else {
+            openArticle(article.id)
+        }
+    }
 }
 
 Article.propTypes = {

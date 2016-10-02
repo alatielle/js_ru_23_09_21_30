@@ -9,7 +9,7 @@ function ArticleList(props) {
     const articleComponents = articles.map(article => (
         <li key={article.id}>
             <Article article = {article} isOpen = {article.id == openArticleId}
-                     openArticle = {openArticle(article.id)}/>
+                     openArticle = {openArticle}/>
         </li>
         )
     )

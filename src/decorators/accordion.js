@@ -6,7 +6,7 @@ export default function accordion(Component) {
             openArticleId: null
         }
 
-        openArticle = id => ev => {
+        openArticle = id => {
             this.setState({
                 openArticleId: id
             })
