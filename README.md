@@ -13,9 +13,6 @@ links:
 * https://facebook.github.io/react/blog/2015/09/02/new-react-developer-tools.html
 * https://facebook.github.io/react/docs/reusable-components.html
 * https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750#.zdiz4yi8x
-<<<<<<< HEAD
-* https://facebook.github.io/react/docs/component-specs.html
-=======
 * https://facebook.github.io/react/docs/component-specs.html
 
 ##ДЗ 3.1 Взять https://github.com/gpbl/react-day-picker и сделать календарь(в Filters), отображать выбранный промежуток дат текстом
@@ -29,4 +26,3 @@ links:
 * https://github.com/webpack/css-loader
 * https://facebook.github.io/react/docs/animation.html
 * https://github.com/gpbl/react-day-picker
->>>>>>> 052234239dcee16a2c45719205cfc059377634f4
