@@ -3,7 +3,7 @@ import Select from 'react-select'
 import 'react-select/dist/react-select.css'
 import DayPicker, { DateUtils } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
-
+//хорошо, но тут появляется много логики, время разбивать на более мелкие компоненты
 class Filters extends Component {
     static propTypes = {
         articles: PropTypes.array
