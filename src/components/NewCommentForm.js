@@ -4,7 +4,7 @@ class NewCommentForm extends Component {
     static propTypes = {
 
     };
-
+    //хорошо, но еще user надо было
     state = {
         comment: ''
     }
