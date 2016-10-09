@@ -2,34 +2,32 @@ import React, { Component, PropTypes } from 'react'
 
 class NewCommentForm extends Component {
     static propTypes = {
-
     };
-    //хорошо, но еще user надо было
+
     state = {
-        comment: ''
+        text: '',
+        user: ''
     }
 
-    handleChange = ev => {
-        if (ev.target.value.length > 140) return
+    handleChange = field => ev => this.setState({
+        [field]: ev.target.value
+    })
+
+    handleSubmit = ev => {
+        ev.preventDefault()
+        console.log('---', this.state)
         this.setState({
-            comment: ev.target.value
+            user: '',
+            text: ''
         })
     }
 
-    submitComment = ev => {
-        ev.preventDefault();
-        const { comment } = this.state
-        if (!comment.length) return
-        console.log(comment)
-    }
-
     render() {
-        const { comment } = this.state
-
         return (
-            <form onSubmit={this.submitComment}>
-                <input type = "text" value = {comment} onChange = {this.handleChange} placeholder="Your comment" />
-                <button disabled={!comment.length} type='submit'>Add Comment</button>
+            <form onSubmit = {this.handleSubmit}>
+                comment: <input type="text" value={this.state.text} onChange = {this.handleChange('text')}/>
+                comment: <input type="text" value={this.state.user} onChange = {this.handleChange('user')}/>
+                <input type = "submit"/>
             </form>
         )
     }
