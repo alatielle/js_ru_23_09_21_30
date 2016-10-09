@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 
-class NewCommentForm extends Component {
+class NewCommentForm ext Component {
     static propTypes = {
     };
 
