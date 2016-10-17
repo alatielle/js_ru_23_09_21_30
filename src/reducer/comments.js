@@ -13,7 +13,6 @@ export default (comments = CommentRecords.map(Comment => new Comment()), action)
             const { user, text } = payload
             const id = action.commentId
             return [...comments, comment({ id, user, text })]
-        //в сторе все лежит правильное, но в комментлист новый комментарий приходит как undefined :(
     }
 
     return comments

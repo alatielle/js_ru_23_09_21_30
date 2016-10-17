@@ -1,6 +1,6 @@
 export function getRelation(entity, relation, storeState) {
     if (!entity[relation] || !storeState[relation]) return []
-    return entity[relation].map(id => storeState[relation][id])
+    return entity[relation].map(id => storeState[relation].find(record => record.get('id') == id))
 }
 
 export function arrayToMap(arr) {
