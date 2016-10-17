@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 
-class NewCommentForm ext Component {
+class NewCommentForm extends Component {
     static propTypes = {
     };
 
@@ -15,10 +15,12 @@ class NewCommentForm ext Component {
 
     handleSubmit = ev => {
         ev.preventDefault()
-        console.log('---', this.state)
+        const { addComment, articleId } = this.props
+        const { text, user } = this.state
+        addComment(articleId, text, user)
         this.setState({
-            user: '',
-            text: ''
+            text: '',
+            user: ''
         })
     }
 
@@ -26,7 +28,7 @@ class NewCommentForm ext Component {
         return (
             <form onSubmit = {this.handleSubmit}>
                 comment: <input type="text" value={this.state.text} onChange = {this.handleChange('text')}/>
-                comment: <input type="text" value={this.state.user} onChange = {this.handleChange('user')}/>
+                user: <input type="text" value={this.state.user} onChange = {this.handleChange('user')}/>
                 <input type = "submit"/>
             </form>
         )

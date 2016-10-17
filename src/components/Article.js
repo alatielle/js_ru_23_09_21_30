@@ -6,6 +6,7 @@ import './animate.css'
 import { deleteArticle } from '../AC/articles'
 import { connect } from 'react-redux'
 import { getRelation } from '../store/helpers'
+import { addComment } from '../AC/comments'
 
 class Article extends Component {
     static propTypes = {
@@ -37,12 +38,12 @@ class Article extends Component {
 */
 
     render() {
-        const { article, comments, isOpen, openArticle } = this.props
+        const { article, comments, isOpen, openArticle, addComment } = this.props
 
         const body = isOpen ? (
             <section>
                 {article.text}
-                <CommentList ref = {this.handleRef} comments = {comments}/>
+                <CommentList ref = {this.handleRef} comments = {comments} addComment={addComment} articleId={article.id}/>
             </section>
         ) : null
 
@@ -70,4 +71,4 @@ class Article extends Component {
 
 export default connect((state, props) => ({
     comments: getRelation(props.article, 'comments', state)
-}), { deleteArticle })(Article)
+}), { deleteArticle, addComment })(Article)
