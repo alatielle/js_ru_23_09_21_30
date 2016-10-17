@@ -1,21 +1,22 @@
 import { ADD_COMMENT, DELETE_ARTICLE } from '../constants'
 import { normalizedArticles } from '../fixtures'
-import { arrayToMap } from '../store/helpers'
-import { List, Map, fromJS } from 'immutable'
+import { Map, Record } from 'immutable'
 
-export default (articles = arrayToMap(normalizedArticles), action) => {
+const ArticleRecords = normalizedArticles.map(article => Record(article));
+
+export default (articles = ArticleRecords.map(record => new record()), action) => {
     const { type, payload } = action
 
     switch (type) {
         case DELETE_ARTICLE:
-            return Object.keys(articles)
-                .filter(id => id != payload.id)
-                .reduce((acc, id) => ({...acc, [id]: articles[id]}), {})
+            return articles.filter(article => article.get('id') != payload.id)
         case ADD_COMMENT:
             const { articleId } = payload
-            const { comments, ...rest } = articles[articleId]
-            const newArticle = {...{comments: new List(comments).push(action.commentId).toArray()}, ...rest}
-            return new Map(articles).set([articleId], newArticle).toObject()
+            const changedArticle = articles.find(record => record.get('id') == articleId)
+            const idx = articles.indexOf(changedArticle)
+            const newArticle = ArticleRecords[idx]({comments: [...changedArticle.get('comments'), action.commentId]})
+            const oldArticles = articles.filter(article => article.get('id') != articleId)
+            return [...oldArticles, newArticle]
     }
     return articles
 }

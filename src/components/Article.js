@@ -39,7 +39,6 @@ class Article extends Component {
 
     render() {
         const { article, comments, isOpen, openArticle, addComment } = this.props
-
         const body = isOpen ? (
             <section>
                 {article.text}
