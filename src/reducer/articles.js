@@ -1,24 +1,50 @@
-import { ADD_COMMENT, DELETE_ARTICLE } from '../constants'
 import { normalizedArticles } from '../fixtures'
-import { Map, Record } from 'immutable'
+import { DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL } from '../constants'
+import { arrayToMap } from '../store/helpers'
+import { Record, Map } from 'immutable'
 
-//а зачем ты переделала хранилище назад на массив, мы же говорили, что это не удобно
-const ArticleRecords = normalizedArticles.map(article => Record(article));
-//что за record с маленькой буквы?
-export default (articles = ArticleRecords.map(record => new record()), action) => {
-    const { type, payload } = action
+const ArticleModel = Record({
+    id: null,
+    date: null,
+    title: "",
+    text: "",
+    loading: false,
+    comments: []
+})
+
+const defaultState = new Map({
+    entities: new Map({}),
+    loading: false,
+    loaded: false
+})
+
+// arrayToMap(normalizedArticles, article => new ArticleModel(article))
+export default (articles = defaultState, action) => {
+    const { type, payload, generatedId, response } = action
 
     switch (type) {
         case DELETE_ARTICLE:
-            return articles.filter(article => article.get('id') != payload.id)
+            return articles.deleteIn(['entities', payload.id])
+
         case ADD_COMMENT:
-            //а вот и вылазит боком хранение в виде масива
-            const { articleId } = payload
-            const changedArticle = articles.find(record => record.get('id') == articleId)
-            const idx = articles.indexOf(changedArticle)
-            const newArticle = ArticleRecords[idx]({comments: [...changedArticle.get('comments'), action.commentId]})
-            const oldArticles = articles.filter(article => article.get('id') != articleId)
-            return [...oldArticles, newArticle]
+            return articles.updateIn(['entities', payload.articleId, 'comments'], comments => comments.concat(generatedId))
+
+        case LOAD_ALL_ARTICLES + START:
+            return articles.set('loading', true)
+
+        case LOAD_ALL_ARTICLES + SUCCESS:
+            return articles
+                .set('entities', arrayToMap(response, article => new ArticleModel(article)))
+                .set('loading', false)
+                .set('loaded', true)
+
+        case LOAD_ARTICLE + START:
+            return articles.setIn(['entities', payload.id, 'loading'], true)
+
+        case LOAD_ARTICLE + SUCCESS:
+            return articles
+                .setIn(['entities', payload.id], new ArticleModel(response))
     }
+
     return articles
 }
